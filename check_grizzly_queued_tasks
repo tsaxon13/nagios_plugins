@@ -1,0 +1,7 @@
+#!/bin/bash
+
+JOLOKIA_URL=${1}
+
+TASKS=`curl -X POST -s ${JOLOKIA_URL}   -H 'Content-Type: application/json' -d '{"type": "read","mbean": "org.glassfish.grizzly:pp=/gmbal-root/HttpServer[HttpServer]/NetworkListener[NetworkListener[grizzly]]/TCPNIOTransport[Transport],type=ThreadPool,name=Grizzly-worker","attribute": "thread-pool-queued-task-count"}' | jq '.["value"]'`
+
+echo "Jolokia Queue Tasks OK | QueuedTasks=${TASKS};;;"
